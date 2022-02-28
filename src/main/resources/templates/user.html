@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+</head>
+<body>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <div>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3">
+            <b><span sec:authentication="name">NOT FOUND</span></b>
+            with roles: <span sec:authentication="principal.authorities">NOT FOUND</span>
+        </a>
+    </div>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="/logout">Logout</a>
+        </div>
+    </div>
+</header>
+<div class="container-fluid bg-light">
+    <div class="row" style="height: 950px;">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-white">
+            <ul class="nav nav-pills flex-column mb-auto">
+                <br>
+                <li class="nav-item">
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <a href="/admin" class="nav-link link-dark">
+                            Admin
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="/user" class="nav-link active" aria-current="page">
+                        User
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand">
+                    <div class=""></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink">
+                    <div class=""></div>
+                </div>
+            </div>
+            <br>
+            <h1>User information-page</h1>
+            <div class="container">
+                <hr/>
+                <h5>About user</h5>
+                <div class="container-fluid bg-white">
+                    <div class="table-responsive">
+                        <br>
+                        <table class="table table-striped table-sm">
+                            <thead>
+                            <tr>
+                                <th> ID</th>
+                                <th> First Name</th>
+                                <th> Last Name</th>
+                                <th> Age</th>
+                                <th> Email</th>
+                                <th> Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${user}">
+                                <td><span th:text="${user.id}"> id </span></td>
+                                <td><span th:text="${user.firstName}"> First Name </span></td>
+                                <td><span th:text="${user.lastName}"> Last Name </span></td>
+                                <td><span th:text="${user.age}"> Age </span></td>
+                                <td><span th:text="${user.email}"> Email </span></td>
+                                <td><span th:text="${user.roles}"> Role </span></td>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
